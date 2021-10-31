@@ -1,0 +1,3 @@
+[submodule "home-manager/configs/vim"]
+	path = home-manager/configs/vim
+	url = https://github.com/amix/vimrc.git
