@@ -126,13 +126,9 @@ in
     docker
     htop
     kitty
-    zsh
-    oh-my-zsh
     file
     curl
     neofetch
-    mysql-client
-    flameshot
 
     # ui
     rofi
@@ -148,26 +144,16 @@ in
 
     # applications
     firefox
-    spotify
-    discord
-    deluge
     vlc
-    vscode
-    tdesktop
-    insomnia    
 
     # programming
-    go
     python3
     gcc
     gnumake     
-    rustup
-    nodejs
-
+    #
     # other
     nvidia-offload
     arandr
-   
   ];
 
 

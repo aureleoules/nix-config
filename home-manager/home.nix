@@ -7,6 +7,24 @@
   home.username = "aureleoules";
   home.homeDirectory = "/home/aureleoules";
 
+  nixpkgs.config.allowUnfree = true;
+
+  home.packages = [
+    pkgs.zsh
+    pkgs.oh-my-zsh
+    pkgs.mysql-client
+    pkgs.flameshot
+    pkgs.spotify
+    pkgs.discord
+    pkgs.deluge
+    pkgs.vscode
+    pkgs.tdesktop
+    pkgs.insomnia
+    pkgs.go
+    pkgs.rustup
+    pkgs.nodejs
+  ];
+
   programs.git = {
     enable = true;
     userName = "Aurèle Oulès";
@@ -26,7 +44,26 @@
       source $ZSH/oh-my-zsh.sh
     '';
   };
-
+  
+  programs.vim = {
+    enable = true;
+    settings = {
+      number = true;
+    };
+    extraConfig = ''
+      set number
+      set runtimepath+=~/config/home-manager/configs/vim
+      source ~/config/home-manager/configs/vim/vimrcs/basic.vim
+      source ~/config/home-manager/configs/vim/vimrcs/filetypes.vim
+      source ~/config/home-manager/configs/vim/vimrcs/plugins_config.vim
+      source ~/config/home-manager/configs/vim/vimrcs/extended.vim
+      try
+        source ~/config/home-manager/configs/vim/vimrcs/my_configs.vim
+      catch
+      endtry
+    '';    
+  };
+ 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
