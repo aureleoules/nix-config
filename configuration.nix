@@ -13,9 +13,9 @@ let
     exec -a "$0" "$@"
   '';
 in
-{
-  imports =
-    [ # Include the results of the hardware scan.
+  {
+    imports =
+      [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
     ];
 
@@ -49,33 +49,33 @@ in
   # Enable the X11 windowing system.
   services = {
     xserver = {
-  	enable = true;
-  	layout = "fr";
-  	xkbOptions = "eurosign:e";
-  	libinput.enable = true;
+      enable = true;
+      layout = "fr";
+      xkbOptions = "eurosign:e";
+      libinput.enable = true;
 
-	desktopManager = {
+      desktopManager = {
           #default = "xfce";
           xterm.enable = false;
-	  xfce = {
-	    enable = true;
-	    noDesktop = true;
-	    enableXfwm = false;
-	  };
+          xfce = {
+            enable = true;
+            noDesktop = true;
+            enableXfwm = false;
+          };
         };
-  	windowManager.i3.enable = true;
-  	windowManager.i3.package = pkgs.i3-gaps;
+        windowManager.i3.enable = true;
+        windowManager.i3.package = pkgs.i3-gaps;
 
         displayManager.defaultSession = "xfce+i3";
 
-  	resolutions = [{ x = 1920; y = 1080; }];
-  	videoDrivers = [ "nvidia" ];
-    };
+        resolutions = [{ x = 1920; y = 1080; }];
+        videoDrivers = [ "nvidia" ];
+      };
 
-    autorandr.enable = true;
-  };
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.prime = {
+      autorandr.enable = true;
+    };
+    hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.prime = {
     #offload.enable = false;
     sync.enable = true;
     # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
@@ -160,10 +160,10 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 

@@ -11,6 +11,7 @@
 
   home.packages = [
     pkgs.zsh
+    pkgs.keychain
     pkgs.oh-my-zsh
     pkgs.mysql-client
     pkgs.flameshot
@@ -42,6 +43,7 @@
       export ZSH_THEME="robbyrussell"
       plugins=(git)
       source $ZSH/oh-my-zsh.sh
+      eval $(keychain --eval id_ed25519 -q)
     '';
   };
   
@@ -52,13 +54,13 @@
     };
     extraConfig = ''
       set number
-      set runtimepath+=~/config/home-manager/configs/vim
-      source ~/config/home-manager/configs/vim/vimrcs/basic.vim
-      source ~/config/home-manager/configs/vim/vimrcs/filetypes.vim
-      source ~/config/home-manager/configs/vim/vimrcs/plugins_config.vim
-      source ~/config/home-manager/configs/vim/vimrcs/extended.vim
+      set runtimepath+=/home/aureleoules/config/home-manager/configs/vim
+      source /home/aureleoules/config/home-manager/configs/vim/vimrcs/basic.vim
+      source /home/aureleoules/config/home-manager/configs/vim/vimrcs/filetypes.vim
+      source /home/aureleoules/config/home-manager/configs/vim/vimrcs/plugins_config.vim
+      source /home/aureleoules/config/home-manager/configs/vim/vimrcs/extended.vim
       try
-        source ~/config/home-manager/configs/vim/vimrcs/my_configs.vim
+        source /home/aureleoules/config/home-manager/configs/vim/vimrcs/my_configs.vim
       catch
       endtry
     '';    
