@@ -54,6 +54,11 @@ in
       xkbOptions = "eurosign:e";
       libinput.enable = true;
 
+      windowManager.i3 = {
+        enable = true;
+        package= pkgs.i3-gaps;
+      };
+
       desktopManager = {
           #default = "xfce";
           xterm.enable = false;
@@ -63,8 +68,6 @@ in
             enableXfwm = false;
           };
         };
-        windowManager.i3.enable = true;
-        windowManager.i3.package = pkgs.i3-gaps;
 
         displayManager = {
           defaultSession = "xfce+i3";
@@ -138,6 +141,7 @@ in
     file
     curl
     neofetch
+    nixpkgs-fmt
 
     # ui
     rofi
