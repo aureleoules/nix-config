@@ -27,7 +27,7 @@ in
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Paris";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -66,24 +66,33 @@ in
         windowManager.i3.enable = true;
         windowManager.i3.package = pkgs.i3-gaps;
 
-        displayManager.defaultSession = "xfce+i3";
+        displayManager = {
+          defaultSession = "xfce+i3";
+          sessionCommands = ''
+            ${pkgs.xlibs.xset}/bin/xset r rate 180 25
+          '';
+        };
 
         resolutions = [{ x = 1920; y = 1080; }];
         videoDrivers = [ "nvidia" ];
       };
 
       autorandr.enable = true;
+      blueman.enable = true;
+
     };
+    hardware.enableRedistributableFirmware = true;
     hardware.nvidia.modesetting.enable = true;
     hardware.nvidia.prime = {
-    #offload.enable = false;
-    sync.enable = true;
-    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-    intelBusId = "PCI:0:2:0";
-    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-    nvidiaBusId = "PCI:1:0:0";
+      #offload.enable = false;
+      sync.enable = true;
+      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+      intelBusId = "PCI:0:2:0";
+      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+      nvidiaBusId = "PCI:1:0:0";
   };
 
+  hardware.bluetooth.enable = true;
   hardware.nvidia.prime.offload.enable = pkgs.lib.mkForce false;
   hardware.nvidia.powerManagement.enable = pkgs.lib.mkForce false;
   #specialisation = {
@@ -111,7 +120,7 @@ in
   users.users.aureleoules = {
     isNormalUser = true;
     home = "/home/aureleoules";
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "video" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
@@ -136,7 +145,6 @@ in
     i3-gaps
     ranger
     mpd
-    compton
     polybar
     pywal
     calc
@@ -149,13 +157,15 @@ in
     # programming
     python3
     gcc
+    criterion
+    binutils
     gnumake     
-    #
+    clang-tools
     # other
     nvidia-offload
     arandr
+    killall
   ];
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -164,6 +174,8 @@ in
     enable = true;
     enableSSHSupport = true;
   };
+
+  programs.light.enable = true;
 
   # List services that you want to enable:
 
@@ -175,6 +187,19 @@ in
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.networkmanager.enable = true;
+  # networking.networkmanager.unmanaged = [
+  #   "*" "except:type:wwan" "except:type:gsm"
+  # ];
+  # networking.wireless.enable = true;
+  # networking.wireless.driver = "ath10k";
+  # networking.wireless.userControlled.enable = true;
+  # networking.wireless.interfaces = [ "wlp7s0" ];
+  # networking.wireless.networks = {
+  #   "WiFi Regular" = {
+  #     pskRaw = "650f423cdeec55771be5b22350829dbba35586ed8616d1aec583ffef0937f656";
+  #   };
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
