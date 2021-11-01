@@ -41,8 +41,10 @@
     scrot
     criterion
     wpa_supplicant
+    libsecret
+    jq
 
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka"  ]; })
   ];
 
   # This value determines the Home Manager release that your

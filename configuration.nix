@@ -32,8 +32,8 @@ in
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp8s0.useDHCP = true;
+  # networking.useDHCP = false;
+  # networking.interfaces.enp8s0.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -82,7 +82,7 @@ in
 
       autorandr.enable = true;
       blueman.enable = true;
-
+      gnome.gnome-keyring.enable = true;
     };
     hardware.enableRedistributableFirmware = true;
     hardware.nvidia.modesetting.enable = true;
@@ -118,6 +118,10 @@ in
 
   # Enable touchpad support (enabled default in most desktopManager).
   virtualisation.docker.enable = true;
+  environment.variables = {
+    QEMU_OPTS = "-m 4096 -smp 4 -enable-kvm";
+  };
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aureleoules = {
@@ -125,6 +129,8 @@ in
     home = "/home/aureleoules";
     extraGroups = [ "wheel" "docker" "video" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
+
+    initialPassword = "password";
   };
 
   # List packages installed in system profile. To search, run:
@@ -172,6 +178,8 @@ in
     brightnessctl
     acpi
     acpilight
+    virtualbox
+    libsecret
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -11,8 +11,8 @@
 
     settings = {
       enabled_layouts = "grid";
-      font_size = 10;
       window_padding_width = 4;
+      enable_audio_bell = "no";
     };
 
     keybindings = {

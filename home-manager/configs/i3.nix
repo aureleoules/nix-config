@@ -37,6 +37,16 @@
           notification = false;
         }
         {
+          command = "feh --bg-scale ~/config/wallpaper.jpg";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "xset r rate 180 30";
+          always = true;
+          notification = false;
+        }
+        {
           command = builtins.toString (pkgs.writeScriptBin "start-polybar" ''
             pkill polybar
             killall -q polybar
