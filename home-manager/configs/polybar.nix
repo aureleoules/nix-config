@@ -33,6 +33,7 @@ in
     };
     config = {
       "bar/main" = {
+        monitor = "\${env:MONITOR}";
         width = "100%";
         height = 30;
         offset-y = 0;
@@ -56,7 +57,7 @@ in
         font-2 = "Iosevka Nerd Font:size=12;3";
         font-3 = "coins:style=Regular:9;2";
         font-4 = "Material Icons Outlined:9;4";
-        modules-left = "i3 bitcoin";
+        modules-left = "i3 bitcoin bitcoin-height";
         modules-center = "date";
         # modules-center = "mpd";
         modules-right = "wired wlan cpu memory temperature xbacklight pulseaudio battery";
@@ -72,7 +73,6 @@ in
       "module/bitcoin" = {
         type = "custom/script";
         interval = 60;
-        # format-prefix = "BTC: ";
         format-prefix = " ";
         format-padding = 1;
         format-prefix-foreground = yellow;
@@ -80,6 +80,18 @@ in
 
         exec = ''
           printf "%'d" $(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur" | jq -r '.bitcoin.eur')
+        '';
+      };
+
+      "module/bitcoin-height" = {
+        type = "custom/script";
+        interval = 10;
+        format-suffix = " blocks";
+        format-padding = 1;
+        format-prefix-foreground = yellow;
+
+        exec = ''
+          printf "%'d" $(curl -s "https://blockstream.info/api/blocks/tip/height")
         '';
       };
 
@@ -148,6 +160,7 @@ in
         format = "<label-state> <label-mode>";
         wrapping-scroll = false;
         enable-scroll = true;
+        pin-workspaces = true;
 
         label-mode = "%mode%";
         label-mode-padding = 1;

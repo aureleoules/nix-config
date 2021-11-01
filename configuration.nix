@@ -46,6 +46,12 @@ in
   #   keyMap = "us";
   # };
 
+  documentation = {
+    enable = true;
+    man.enable = true;
+    dev.enable = true;
+  };
+
   # Enable the X11 windowing system.
   services = {
     xserver = {
@@ -171,6 +177,8 @@ in
     binutils
     gnumake     
     clang-tools
+    man-pages
+    man-pages-posix
     # other
     nvidia-offload
     arandr

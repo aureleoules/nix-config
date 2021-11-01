@@ -59,7 +59,7 @@ in
         scroll-down = "i3wm-wsprev";
 
         cursor-click = "pointer";
-        cursor-scroll = "ns-resize";
+        cursor-scroll = "pointer";
       };
 
       # [module/xwindow]
