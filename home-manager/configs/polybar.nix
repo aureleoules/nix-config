@@ -146,6 +146,8 @@ in
         index-sort = true;
 
         format = "<label-state> <label-mode>";
+        wrapping-scroll = false;
+        enable-scroll = true;
 
         label-mode = "%mode%";
         label-mode-padding = 1;
