@@ -9,6 +9,8 @@
     ./configs/zsh.nix
     ./configs/kitty.nix
     ./configs/vscode.nix
+    ./configs/i3.nix
+    ./configs/rofi.nix
   ];
 
   # Let Home Manager install and manage itself.
@@ -18,9 +20,7 @@
   home.homeDirectory = "/home/aureleoules";
 
   nixpkgs.config.allowUnfree = true;
-
   fonts.fontconfig.enable = true;
-
   home.packages = with pkgs; [
     zsh
     keychain
@@ -44,12 +44,6 @@
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" ]; })
   ];
-
-
-  # xsession.windowManager.i3 = {
-  #   enable = true;
-  #   package= pkgs.i3-gaps;
-  # };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

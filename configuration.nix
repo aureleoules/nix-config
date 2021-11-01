@@ -169,6 +169,9 @@ in
     nvidia-offload
     arandr
     killall
+    brightnessctl
+    acpi
+    acpilight
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
