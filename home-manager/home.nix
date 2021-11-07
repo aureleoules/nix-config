@@ -90,6 +90,7 @@ in
     killall
     virtualbox
     libsecret
+    unstable.bitcoin
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];
