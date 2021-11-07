@@ -6,7 +6,7 @@ let
   bg-darker = "#151515";
   fg = "#ffffff";
   fg-alt = "#474747";
-  
+
   blue = "#2979ff";
   cyan = "#00e5ff";
   green = "#00e676";
@@ -15,13 +15,13 @@ let
   purple = "#d500f9";
   red = "#ff1744";
   yellow = "#ffea00";
-  
+
   black = "#000";
   white = "#FFF";
-  
+
   trans = "#00000000";
   semi-trans-black = "#aa000000";
-in 
+in
 {
   services.polybar = {
     enable = true;
@@ -44,8 +44,8 @@ in
 
         override-redirect = false;
 
-        scroll-up = "next";
-        scroll-down = "prev";
+        scroll-up = "i3-msg workspace next_on_output";
+        scroll-down = "i3-msg workspace prev_on_output";
 
         enable-ipc = true;
 
@@ -68,11 +68,11 @@ in
 
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
-      }; 
+      };
 
       "module/bitcoin" = {
         type = "custom/script";
-        interval = 60;
+        interval = 30;
         format-prefix = " ";
         format-padding = 1;
         format-prefix-foreground = yellow;
@@ -159,6 +159,7 @@ in
 
         format = "<label-state> <label-mode>";
         wrapping-scroll = false;
+        reverse-scroll = false;
         enable-scroll = true;
         pin-workspaces = true;
 
@@ -225,15 +226,15 @@ in
       };
 
       "module/cpu" = {
-          type = "internal/cpu";
-          interval = 1;
+        type = "internal/cpu";
+        interval = 1;
 
-          format = "<label>";
-          format-padding = 1;
-          format-prefix = "%{T2}CPU%{T-}";
-          format-prefix-foreground = fg-alt;
-          label = "%{T1}%percentage:2%%%{T-}";
-          label-padding = 1;
+        format = "<label>";
+        format-padding = 1;
+        format-prefix = "%{T2}CPU%{T-}";
+        format-prefix-foreground = fg-alt;
+        label = "%{T1}%percentage:2%%%{T-}";
+        label-padding = 1;
       };
 
       "module/memory" = {

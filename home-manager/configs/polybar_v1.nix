@@ -9,7 +9,7 @@ let
   secondary = "#e60053";
   alert = "#bd2c40";
   accent = "#4bc98a";
-in 
+in
 {
   services.polybar = {
     enable = true;
@@ -32,7 +32,7 @@ in
         background = bg;
         foreground = fg;
 
-        line-size =  0;
+        line-size = 0;
         line-color = "#f00";
 
         border-size = 0;
@@ -126,8 +126,8 @@ in
 
         label-focused = "%name%";
         label-focused-background = accent;
-        label-focused-underline= bg;
-        label-focused-foreground= bg;
+        label-focused-underline = bg;
+        label-focused-foreground = bg;
         label-focused-padding = 2;
 
         label-unfocused = "%name%";

@@ -52,14 +52,15 @@
           notification = false;
         }
         {
-          command = builtins.toString (pkgs.writeScriptBin "start-polybar" ''
-            pkill polybar
-            killall -q polybar
-            while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-            for m in $(polybar --list-monitors | cut -d":" -f1); do
-              MONITOR=$m polybar -q -r main &
-            done
-          '') + "/bin/start-polybar";
+          command = builtins.toString
+            (pkgs.writeScriptBin "start-polybar" ''
+              pkill polybar
+              killall -q polybar
+              while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+              for m in $(polybar --list-monitors | cut -d":" -f1); do
+                MONITOR=$m polybar -q -r main &
+              done
+            '') + "/bin/start-polybar";
           always = true;
           notification = false;
         }

@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in
 {
   imports = [
     ./configs/git.nix
@@ -22,6 +25,16 @@
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    git
+    wget
+    docker
+    docker-compose
+    htop
+    kitty
+    file
+    curl
+    neofetch
+    nixpkgs-fmt
     zsh
     keychain
     oh-my-zsh
@@ -36,6 +49,7 @@
     go
     rustup
     nodejs
+    yarn
     font-awesome
     feh
     scrot
@@ -43,8 +57,41 @@
     wpa_supplicant
     libsecret
     jq
+    thunderbird
+    libreoffice
+    teams
+    gdb
+    valgrind
+    gtop
+    bat
+    openvpn
+    rofi
+    i3-gaps
+    ranger
+    mpd
+    pywal
+    calc
+    networkmanager_dmenu
 
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka"  ]; })
+    # applications
+    firefox
+    unstable.tor-browser-bundle-bin
+    vlc
+
+    # programming
+    python3
+    gcc
+    criterion
+    binutils
+    gnumake
+    clang-tools
+    man-pages
+    man-pages-posix
+    killall
+    virtualbox
+    libsecret
+
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];
 
   # This value determines the Home Manager release that your

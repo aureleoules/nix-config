@@ -31,6 +31,18 @@
         version = "1.21.10";
         sha256 = "0c9m7mc2kmfzj3hkwq3d4hj43qha8a75q5r1rdf1xfx8wi5hhb1n";
       }
+      {
+        name = "svelte-vscode";
+        publisher = "Svelte";
+        version = "105.5.0";
+        sha256 = "1alchxaac1584dd5402zwwpyxxy4d3rkii2hcmvm1p8lglvdlsgn";
+      }
+      {
+        name = "Go";
+        publisher = "golang";
+        version = "0.29.0";
+        sha256 = "1ky5xnl300m42ja8sh3b4ynn8k1nnrcbxxhn3c3g5bsyzsrr1nmz";
+      }
     ];
   };
 }

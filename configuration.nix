@@ -5,6 +5,9 @@
 { config, pkgs, ... }:
 
 let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in
+let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -13,15 +16,17 @@ let
     exec -a "$0" "$@"
   '';
 in
-  {
-    imports =
-      [ # Include the results of the hardware scan.
+{
+  imports =
+    [
+      # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.cleanTmpDir = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -62,57 +67,45 @@ in
 
       windowManager.i3 = {
         enable = true;
-        package= pkgs.i3-gaps;
+        package = pkgs.i3-gaps;
       };
 
       desktopManager = {
-          #default = "xfce";
-          xterm.enable = false;
-          xfce = {
-            enable = true;
-            noDesktop = true;
-            enableXfwm = false;
-          };
+        #default = "xfce";
+        xterm.enable = false;
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = false;
         };
-
-        displayManager = {
-          defaultSession = "xfce+i3";
-          sessionCommands = ''
-            ${pkgs.xlibs.xset}/bin/xset r rate 180 25
-          '';
-        };
-
-        resolutions = [{ x = 1920; y = 1080; }];
-        videoDrivers = [ "nvidia" ];
       };
 
-      autorandr.enable = true;
-      blueman.enable = true;
-      gnome.gnome-keyring.enable = true;
+      displayManager = {
+        defaultSession = "xfce+i3";
+        sessionCommands = ''
+          ${pkgs.xlibs.xset}/bin/xset r rate 180 25
+        '';
+      };
+
+      resolutions = [{ x = 1920; y = 1080; }];
+      videoDrivers = [ "nvidia" ];
     };
-    hardware.enableRedistributableFirmware = true;
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.prime = {
-      #offload.enable = false;
-      sync.enable = true;
-      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-      intelBusId = "PCI:0:2:0";
-      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-      nvidiaBusId = "PCI:1:0:0";
+
+    autorandr.enable = true;
+    blueman.enable = true;
+    gnome.gnome-keyring.enable = true;
+  };
+  hardware.enableRedistributableFirmware = true;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.prime = {
+    sync.enable = true;
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
 
   hardware.bluetooth.enable = true;
   hardware.nvidia.prime.offload.enable = pkgs.lib.mkForce false;
   hardware.nvidia.powerManagement.enable = pkgs.lib.mkForce false;
-  #specialisation = {
-  #  external-display.configuration = {
-  #    boot.loader.grub.configurationName = "external-display";
-  #    system.nixos.tags = [ "external-display" ];
-  #    hardware.nvidia.prime.offload.enable = pkgs.lib.mkForce false;
-  #    hardware.nvidia.powerManagement.enable = pkgs.lib.mkForce false;
-  #  };
-  #}; 
-
   # Configure keymap in X11
 
   # Enable CUPS to print documents.
@@ -122,12 +115,7 @@ in
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
   virtualisation.docker.enable = true;
-  environment.variables = {
-    QEMU_OPTS = "-m 4096 -smp 4 -enable-kvm";
-  };
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aureleoules = {
@@ -143,51 +131,12 @@ in
   # $ nix search wge
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    # tools
-    vim 
-    git
-    wget
-    docker
-    htop
-    kitty
-    file
-    curl
-    neofetch
-    nixpkgs-fmt
-
-    # ui
-    rofi
-    i3
-    i3-gaps
-    ranger
-    mpd
-    polybar
-    pywal
-    calc
-    networkmanager_dmenu
-
-    # applications
-    firefox
-    vlc
-
-    # programming
-    python3
-    gcc
-    criterion
-    binutils
-    gnumake     
-    clang-tools
-    man-pages
-    man-pages-posix
     # other
     nvidia-offload
     arandr
-    killall
     brightnessctl
     acpi
     acpilight
-    virtualbox
-    libsecret
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -211,18 +160,6 @@ in
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   networking.networkmanager.enable = true;
-  # networking.networkmanager.unmanaged = [
-  #   "*" "except:type:wwan" "except:type:gsm"
-  # ];
-  # networking.wireless.enable = true;
-  # networking.wireless.driver = "ath10k";
-  # networking.wireless.userControlled.enable = true;
-  # networking.wireless.interfaces = [ "wlp7s0" ];
-  # networking.wireless.networks = {
-  #   "WiFi Regular" = {
-  #     pskRaw = "650f423cdeec55771be5b22350829dbba35586ed8616d1aec583ffef0937f656";
-  #   };
-  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
