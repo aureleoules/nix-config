@@ -91,6 +91,15 @@ in
     virtualbox
     libsecret
     unstable.bitcoin
+    autoconf
+    automake
+    libtool
+    autoconf
+    m4
+    ledger-live-desktop
+    ledger-udev-rules
+    shellcheck
+    google-chrome
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];
