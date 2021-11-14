@@ -96,10 +96,11 @@ in
     libtool
     autoconf
     m4
-    ledger-live-desktop
+    unstable.ledger-live-desktop
     ledger-udev-rules
     shellcheck
     google-chrome
+    unstable.electrum
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];

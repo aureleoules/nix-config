@@ -139,6 +139,10 @@ in
     acpilight
   ];
 
+  services.udev.packages = with pkgs; [
+    ledger-udev-rules
+  ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
