@@ -1,13 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+{ config, pkgs, lib, ... }:
 
-{ config, pkgs, ... }:
-
-let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in
-let
+let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -15,41 +9,18 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
-in
-{
-  imports =
-    [
-      # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
+in {
+  imports = [ /etc/nixos/hardware-configuration.nix ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.devices = [ "nodev" ];
+  boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
   boot.cleanTmpDir = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Set your time zone.
   time.timeZone = "Europe/Paris";
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  # networking.useDHCP = false;
-  # networking.interfaces.enp8s0.useDHCP = true;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
 
   documentation = {
     enable = true;
@@ -57,7 +28,6 @@ in
     dev.enable = true;
   };
 
-  # Enable the X11 windowing system.
   services = {
     xserver = {
       enable = true;
@@ -71,7 +41,6 @@ in
       };
 
       desktopManager = {
-        #default = "xfce";
         xterm.enable = false;
         xfce = {
           enable = true;
@@ -87,37 +56,52 @@ in
         '';
       };
 
-      resolutions = [{ x = 1920; y = 1080; }];
-      videoDrivers = [ "nvidia" ];
+      resolutions = [{
+        x = 1920;
+        y = 1080;
+      }];
     };
 
     autorandr.enable = true;
     blueman.enable = true;
     gnome.gnome-keyring.enable = true;
   };
-  hardware.enableRedistributableFirmware = true;
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.prime = {
-    sync.enable = true;
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
+
+  specialisation = {
+    with-gpu.inheritParentConfig = true;
+    with-gpu.configuration = {
+      system.nixos.tags = [ "with-gpu" ];
+      boot.loader.grub.configurationName = "with-gpu";
+      services.xserver.videoDrivers = [ "nvidia" ];
+
+      hardware.nvidia.prime.offload.enable = pkgs.lib.mkForce false;
+      hardware.nvidia.powerManagement.enable = pkgs.lib.mkForce false;
+
+      hardware.enableRedistributableFirmware = true;
+      hardware.nvidia.modesetting.enable = true;
+      hardware.nvidia.prime = {
+        sync.enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+
+    no-gpu.inheritParentConfig = true;
+    no-gpu.configuration = {
+      system.nixos.tags = [ "no-gpu" ];
+      boot.loader.grub.configurationName = "no-gpu";
+    };
   };
 
   hardware.bluetooth.enable = true;
-  hardware.nvidia.prime.offload.enable = pkgs.lib.mkForce false;
-  hardware.nvidia.powerManagement.enable = pkgs.lib.mkForce false;
-  # Configure keymap in X11
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    liveRestore = false;
+  };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aureleoules = {
     isNormalUser = true;
     home = "/home/aureleoules";
@@ -127,11 +111,8 @@ in
     initialPassword = "password";
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wge
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    # other
     nvidia-offload
     arandr
     brightnessctl
@@ -139,30 +120,14 @@ in
     acpilight
   ];
 
-  services.udev.packages = with pkgs; [
-    ledger-udev-rules
-  ];
+  services.udev.packages = with pkgs; [ ledger-udev-rules ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
 
   programs.light.enable = true;
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
   networking.networkmanager.enable = true;
 
   # This value determines the NixOS release from which the default
