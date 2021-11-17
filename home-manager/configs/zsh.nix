@@ -14,6 +14,7 @@
       plugins=(git)
       source $ZSH/oh-my-zsh.sh
       eval $(keychain --eval id_ed25519 -q)
+      export PATH=~/go/bin:$PATH
     '';
   };
 }
