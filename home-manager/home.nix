@@ -46,14 +46,13 @@ in
     vscode
     tdesktop
     insomnia
-    go
+    unstable.go
     rustup
     nodejs
     yarn
     font-awesome
     feh
     scrot
-    criterion
     wpa_supplicant
     libsecret
     jq
@@ -81,7 +80,7 @@ in
     # programming
     python3
     gcc
-    criterion
+    unstable.criterion.dev
     binutils
     gnumake
     clang-tools
@@ -101,6 +100,14 @@ in
     shellcheck
     google-chrome
     unstable.electrum
+    unzip
+    reaper
+    ardour
+    sox
+    meson
+    ninja
+    cmake
+    pkg-config
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];

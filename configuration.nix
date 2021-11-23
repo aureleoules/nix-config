@@ -76,7 +76,8 @@ in {
 
       hardware.nvidia.prime.offload.enable = pkgs.lib.mkForce false;
       hardware.nvidia.powerManagement.enable = pkgs.lib.mkForce false;
-
+      hardware.opengl.enable = true;
+      # hardware.opengl.driSupport32Bit = true;
       hardware.enableRedistributableFirmware = true;
       hardware.nvidia.modesetting.enable = true;
       hardware.nvidia.prime = {
@@ -128,6 +129,7 @@ in {
   };
 
   programs.light.enable = true;
+  programs.steam.enable = true;
   networking.networkmanager.enable = true;
 
   # This value determines the NixOS release from which the default

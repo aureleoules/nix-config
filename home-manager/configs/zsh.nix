@@ -15,6 +15,7 @@
       source $ZSH/oh-my-zsh.sh
       eval $(keychain --eval id_ed25519 -q)
       export PATH=~/go/bin:$PATH
+      xset r rate 180 25
     '';
   };
 }
