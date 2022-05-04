@@ -41,12 +41,11 @@ in
     mysql-client
     flameshot
     spotify
-    discord
+    unstable.discord
     deluge
     vscode
     tdesktop
     insomnia
-    unstable.go
     rustup
     nodejs
     yarn
@@ -74,20 +73,19 @@ in
 
     # applications
     firefox
-    unstable.tor-browser-bundle-bin
+    tor-browser-bundle-bin
     vlc
 
     # programming
     python3
-    gcc
+    gcc11
     unstable.criterion.dev
-    binutils
+    # binutils
     gnumake
     clang-tools
     man-pages
     man-pages-posix
     killall
-    virtualbox
     libsecret
     unstable.bitcoin
     autoconf
@@ -98,7 +96,7 @@ in
     unstable.ledger-live-desktop
     ledger-udev-rules
     shellcheck
-    google-chrome
+    # unstable.google-chrome
     unstable.electrum
     unzip
     reaper
@@ -108,6 +106,24 @@ in
     ninja
     cmake
     pkg-config
+    pre-commit
+    slack
+    # obinskit
+    dash
+    unstable.minecraft
+    cppcheck
+    openhmd
+    wineWowPackages.stable
+    #(wine.override { wineBuild = "wine64"; })
+    unstable.go_1_17
+    openjdk
+    imwheel
+    zoom-us
+    polymc
+    gh
+    texlive.combined.scheme-full
+    ccache
+    jetbrains.clion
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];

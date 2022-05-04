@@ -8,6 +8,23 @@
       "editor.fontFamily" = "mononoki Nerd Font";
       "editor.fontWeight" = "bold";
       "workbench.colorTheme" = "Black";
+      "java.jdt.ls.java.home" = "/home/aureleoules/.nix-profile/lib/openjdk";
+      "java.configuration.runtimes" = [
+        {
+          "name" = "JavaSE-16";
+          "path" = "/home/aureleoules/.nix-profile/lib/openjdk";
+        }
+      ];
+      "ui.diagnostic.staticcheck" = true;
+      "C_Cpp.default.cppStandard" = "c++20";
+      "github.copilot.enable" = {
+        "*" = true;
+        "yaml" = true;
+        "plaintext" = true;
+        "markdown" = true;
+      };
+      "editor.inlineSuggest.enabled" = true;
+      # "editor.formatOnSave" = true;
     };
 
     extensions = (with pkgs.vscode-extensions; [
@@ -42,6 +59,18 @@
         publisher = "golang";
         version = "0.29.0";
         sha256 = "1ky5xnl300m42ja8sh3b4ynn8k1nnrcbxxhn3c3g5bsyzsrr1nmz";
+      }
+      {
+        name = "rust-analyzer";
+        publisher = "matklad";
+        version = "0.2.834";
+        sha256 = "sha256-G5uBHDfm3JTXt1NtCLZVmrcxMJx5ZIIvnbtwu16iquA=";
+      }
+      {
+        name = "shell-format";
+        publisher = "foxundermoon";
+        version = "7.2.2";
+        sha256 = "sha256-cec5ICfUOxmszVvuwOH3fWsH4UuSm9rXFVq2y4UHjAM=";
       }
     ];
   };

@@ -6,7 +6,7 @@
 
     shadow = true;
     activeOpacity = "1.0";
-    inactiveOpacity = "0.95";
+    inactiveOpacity = "1.0";
     backend = "glx";
 
     extraOptions = ''
