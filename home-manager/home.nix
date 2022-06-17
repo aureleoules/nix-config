@@ -115,7 +115,7 @@ in
     openhmd
     wineWowPackages.stable
     #(wine.override { wineBuild = "wine64"; })
-    unstable.go_1_17
+    unstable.go_1_18
     openjdk
     imwheel
     zoom-us

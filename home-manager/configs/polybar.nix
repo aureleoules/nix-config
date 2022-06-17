@@ -79,7 +79,7 @@ in
         format-suffix = " €";
 
         exec = ''
-          printf "%'d" $(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur" | jq -r '.bitcoin.eur')
+          printf "%'.0f" $(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur" | jq -r '.bitcoin.eur')
         '';
       };
 

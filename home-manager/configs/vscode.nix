@@ -24,6 +24,9 @@
         "markdown" = true;
       };
       "editor.inlineSuggest.enabled" = true;
+      "[svelte]" = {
+        "editor.defaultFormatter" = "svelte.svelte-vscode";
+      };
       # "editor.formatOnSave" = true;
     };
 
