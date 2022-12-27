@@ -38,7 +38,7 @@ in
     zsh
     keychain
     oh-my-zsh
-    mysql-client
+    mariadb.client
     flameshot
     spotify
     unstable.discord
@@ -47,12 +47,14 @@ in
     tdesktop
     insomnia
     rustup
+    # cargo
+    # rustc
     nodejs
     yarn
     font-awesome
     feh
     scrot
-    wpa_supplicant
+    # wpa_supplicant
     libsecret
     jq
     thunderbird
@@ -62,7 +64,6 @@ in
     valgrind
     gtop
     bat
-    openvpn
     rofi
     i3-gaps
     ranger
@@ -78,7 +79,7 @@ in
 
     # programming
     python3
-    gcc11
+    # gcc11
     unstable.criterion.dev
     # binutils
     gnumake
@@ -97,11 +98,8 @@ in
     ledger-udev-rules
     shellcheck
     # unstable.google-chrome
-    unstable.electrum
+    # unstable.electrum
     unzip
-    reaper
-    ardour
-    sox
     meson
     ninja
     cmake
@@ -111,19 +109,40 @@ in
     # obinskit
     dash
     unstable.minecraft
-    cppcheck
-    openhmd
-    wineWowPackages.stable
+    # cppcheck
+    # wineWowPackages.stable
     #(wine.override { wineBuild = "wine64"; })
     unstable.go_1_18
     openjdk
     imwheel
-    zoom-us
-    polymc
+    prismlauncher
     gh
-    texlive.combined.scheme-full
     ccache
+    # jetbrains.clion
+    clang_14
     jetbrains.clion
+
+
+    # bitcoin
+      autoconf
+      automake
+      libtool
+      pkg-config
+      boost177
+      libevent
+      zeromq
+      sqlite
+      db48
+      virtualenv
+
+      qt5Full
+      qt5.qttools
+      # functional tests
+      python3Packages.setuptools
+      python3Packages.vulture
+
+      # debugging
+      gdb
 
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Mononoki" "Iosevka" ]; })
   ];

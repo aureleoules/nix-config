@@ -5,18 +5,17 @@
     enable = true;
 
     shadow = true;
-    activeOpacity = "1.0";
-    inactiveOpacity = "1.0";
+    activeOpacity = 1.0;
+    inactiveOpacity = 1.0;
     backend = "glx";
 
-    extraOptions = ''
+    settings = {
       corner-radius = 8;
       detect-rounded-corners = true;
-      rounded-corners-exclude = [
-        "window_type = 'dock'",
-        "window_type = 'desktop'"
-      ];
-    '';
+      rounded-corners-exclude = {
+        window_type = "desktop";
+      };
+    };
 
     package = pkgs.picom.overrideAttrs (o: {
       src = pkgs.fetchFromGitHub {

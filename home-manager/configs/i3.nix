@@ -55,7 +55,7 @@ done
         "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${modifier}+Shift+p" = "exec flameshot gui";
         "${modifier}+r" = "mode resize";
-        "${modifier}+Tab" = "workspace back_and_forth";
+        "${modifier}+Tab" = "workspace next_on_output";
         "Mod1+Tab" = "workspace next";
         "Mod1+Shift+Tab" = "workspace prev";
       };

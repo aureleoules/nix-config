@@ -18,6 +18,9 @@ in {
     })
   ];
 
+  # boot.kernel.sysctl.perf_event_paranoid = -1;
+  boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
+  boot.kernel.sysctl."kernel.perf_event_max_sample_rate" = 200;
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;
   boot.loader.grub.devices = [ "nodev" ];
@@ -46,15 +49,6 @@ in {
     enable = true;
     man.enable = true;
     dev.enable = true;
-  };
-
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      extra-sandbox-paths = /nix/var/cache/ccache
-    '';
-    sandboxPaths = [ (toString config.programs.ccache.cacheDir) ];
   };
 
   services = {
@@ -137,6 +131,12 @@ in {
   virtualisation.docker = {
     enable = true;
     liveRestore = false;
+    enableNvidia = true;
+  };
+
+  virtualisation.podman = {
+    enable = true;
+    # dockerCompat = true;
   };
 
   virtualisation.virtualbox.host.enable = true;
@@ -173,6 +173,8 @@ in {
   services.logind.extraConfig = ''
     RuntimeDirectorySize=20G
   '';
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
@@ -190,6 +192,9 @@ in {
   programs.steam.enable = true;
   programs.ccache.enable = true;
   networking.networkmanager.enable = true;
+  networking.nameservers = ["1.1.1.1" "1.0.0.1"];
+  networking.firewall.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

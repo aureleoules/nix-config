@@ -8,7 +8,7 @@
     extraConfig = {
       core.editor = "vim";
       user.signingKey = "55F3976F7001D998";
-      commit.pgpSign = true;
+      commit.pgpsign = true;
     };
   };
 }
